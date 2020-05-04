@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>QUnit Example</title>
+    <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.9.2.css">
+</head>
+
+<body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+    <script src="https://code.jquery.com/qunit/qunit-2.9.2.js"></script>
+    <script src="yatzyController.js"></script>
+
+    <script>
+        // dummy view
+        function updateView() { }
+
+        // model
+        let dice;
+        let currentPoints;
+
+        QUnit.test("ett par - 5", function (assert) {
+            dice = [5, 5, 1, 2, 3];
+            pointsOnePair();
+            assert.equal(currentPoints, 10);
+        });
+
+        QUnit.test("ett par - 3", function (assert) {
+            dice = [3, 5, 1, 2, 3];
+            pointsOnePair();
+            assert.equal(currentPoints, 6);
+        });
+
+        QUnit.test("tre like - 3", function (assert) {
+            dice = [3, 5, 1, 3, 3];
+            threeOfAKind();
+            assert.equal(currentPoints, 9);
+        });
+        
+        QUnit.test("fire like - 4", function (assert) {
+            dice = [4, 5, 4, 4, 4];
+            fourOfAKind();
+            assert.equal(currentPoints, 16);
+        });
+        
+        QUnit.test("yatzy", function (assert) {
+            dice = [1, 1, 1, 1, 1];
+            yatzy();
+            assert.equal(currentPoints, 50);
+        });
+
+        QUnit.test("ikke yatzy", function (assert) {
+            dice = [1, 1, 2, 1, 1];
+            yatzy();
+            assert.equal(currentPoints, 0);
+        });
+
+        QUnit.test("frekvenstabell", function (assert) {
+            dice = [3, 5, 1, 2, 3];
+            const actualTable = createFrequencyTable(dice);
+            const expectedTable = [
+                0, // 0-er
+                1, // 1-ere
+                1, // 2-ere
+                2, // 3-ere
+                0, // 4-ere
+                1, // 5-ere
+                0, // 6-ere
+            ];
+            assert.deepEqual(actualTable, expectedTable);
+        });
+    </script>
+</body>
+
+</html>
