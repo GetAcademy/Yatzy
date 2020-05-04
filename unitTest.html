@@ -34,27 +34,91 @@
             assert.equal(currentPoints, 6);
         });
 
+        
+        QUnit.test("ett par - velger høyeste", function (assert) {
+            dice = [3, 5, 5, 2, 3];
+            pointsOnePair();
+            assert.equal(currentPoints, 10);
+        });
+        
+        QUnit.test("ikke ett par - 3", function (assert) {
+            dice = [4, 5, 1, 2, 3];
+            pointsOnePair();
+            assert.equal(currentPoints, 0);
+        });
+
         QUnit.test("tre like - 3", function (assert) {
             dice = [3, 5, 1, 3, 3];
-            threeOfAKind();
+            pointsThreeOfAKind();
             assert.equal(currentPoints, 9);
+        });
+
+        
+        QUnit.test("ikke tre like ", function (assert) {
+            dice = [3, 5, 1, 3, 2];
+            pointsThreeOfAKind();
+            assert.equal(currentPoints, 0);
         });
         
         QUnit.test("fire like - 4", function (assert) {
             dice = [4, 5, 4, 4, 4];
-            fourOfAKind();
+            pointsFourOfAKind();
             assert.equal(currentPoints, 16);
+        });
+                
+        QUnit.test("ikke fire like", function (assert) {
+            dice = [4, 5, 3, 4, 4];
+            pointsFourOfAKind();
+            assert.equal(currentPoints, 0);
         });
         
         QUnit.test("yatzy", function (assert) {
             dice = [1, 1, 1, 1, 1];
-            yatzy();
+            pointsYatzy();
             assert.equal(currentPoints, 50);
         });
 
         QUnit.test("ikke yatzy", function (assert) {
             dice = [1, 1, 2, 1, 1];
-            yatzy();
+            pointsYatzy();
+            assert.equal(currentPoints, 0);
+        });
+
+        QUnit.test("to par", function (assert) {
+            dice = [5, 5, 1, 1, 3];
+            pointsTwoPairs();
+            assert.equal(currentPoints, 12);
+        });
+
+        QUnit.test("ikke to par", function (assert) {
+            dice = [5, 4, 1, 1, 3];
+            pointsTwoPairs();
+            assert.equal(currentPoints, 0);
+        });
+
+        
+        QUnit.test("hus", function (assert) {
+            dice = [5, 5, 1, 1, 1];
+            pointsHouse();
+            assert.equal(currentPoints, 13);
+        });
+
+        QUnit.test("ikke hus", function (assert) {
+            dice = [5, 4, 1, 1, 3];
+            pointsHouse();
+            assert.equal(currentPoints, 0);
+        });
+
+        
+        QUnit.test("liten straight", function (assert) {
+            dice = [5, 4, 2, 1, 3];
+            pointsSmallStraight();
+            assert.equal(currentPoints, 15);
+        });
+
+        QUnit.test("ikke liten straight", function (assert) {
+            dice = [6, 3, 2, 1, 3];
+            pointsSmallStraight();
             assert.equal(currentPoints, 0);
         });
 
